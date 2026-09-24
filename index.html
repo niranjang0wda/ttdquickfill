@@ -215,7 +215,7 @@ p{margin:0 0 1em}
 .faq-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s ease}
 .faq-a > div{overflow:hidden}
 .faq-a p{margin:0;padding:0 44px 22px 4px;color:var(--muted)}
-.faq-q[aria-expanded="true"] + .faq-a{grid-template-rows:1fr}
+.faq-item.open .faq-a{grid-template-rows:1fr}
 
 /* ---------- Disclaimer ---------- */
 .disclaimer{padding:0 0 clamp(64px,8vw,96px)}
@@ -364,7 +364,7 @@ footer{background:var(--maroon-deep);color:rgba(251,244,228,.75);padding:44px 0 
         <p class="sub enter" style="--i:1">Fill Your TTD Booking Details Faster</p>
         <p class="support enter" style="--i:2">A simple Chrome extension and Android app that helps you quickly fill your TTD booking details. Save time and avoid repeatedly typing the same information.</p>
         <div class="cta-row enter" style="--i:3">
-          <a class="btn btn-gold" href="https://chromewebstore.google.com/detail/fdepehalbjlpbcoicjnjadnbohcjeghh" rel="noopener">
+          <a class="btn btn-gold" href="https://chromewebstore.google.com/detail/fdepehalbjlpbcoicjnjadnbohcjeghh" data-chrome-link target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5a2.5 2.5 0 0 0-5 0V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7s2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5a2.5 2.5 0 0 0 0-5z"/></svg>
             Install Chrome Extension — FREE
           </a>
@@ -542,7 +542,7 @@ footer{background:var(--maroon-deep);color:rgba(251,244,228,.75);padding:44px 0 
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Details saved in your browser</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>No payment needed</li>
           </ul>
-          <a class="btn btn-maroon" href="https://chromewebstore.google.com/" data-chrome-link target="_blank" rel="noopener">Install Free Extension</a>
+          <a class="btn btn-maroon" href="https://chromewebstore.google.com/detail/fdepehalbjlpbcoicjnjadnbohcjeghh" data-chrome-link target="_blank" rel="noopener">Install Free Extension</a>
         </article>
       </div>
     </div>
@@ -606,7 +606,7 @@ footer{background:var(--maroon-deep);color:rgba(251,244,228,.75);padding:44px 0 
       <h2 id="final-title">Ready to Fill Your TTD Details Faster?</h2>
       <p>Choose the free Chrome extension or get the Android app for ₹499.</p>
       <div class="cta-row">
-        <a class="btn btn-gold" href="https://chromewebstore.google.com/" data-chrome-link target="_blank" rel="noopener">
+        <a class="btn btn-gold" href="https://chromewebstore.google.com/detail/fdepehalbjlpbcoicjnjadnbohcjeghh" data-chrome-link target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5a2.5 2.5 0 0 0-5 0V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7s2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5a2.5 2.5 0 0 0 0-5z"/></svg>
           Install Chrome Extension — FREE
         </a>
@@ -710,7 +710,7 @@ footer{background:var(--maroon-deep);color:rgba(251,244,228,.75);padding:44px 0 
 <script>
 /* ===== Edit these two values before going live ===== */
 const CONFIG = {
-  chromeUrl: "https://chromewebstore.google.com/",   // your extension's Chrome Web Store page
+  chromeUrl: "https://chromewebstore.google.com/detail/fdepehalbjlpbcoicjnjadnbohcjeghh",   // your extension's Chrome Web Store page
   contactEmail: "support@example.com"                 // your support email
 };
 
@@ -777,6 +777,7 @@ const CONFIG = {
     btn.addEventListener('click', () => {
       const open = btn.getAttribute('aria-expanded') === 'true';
       btn.setAttribute('aria-expanded', String(!open));
+      btn.closest('.faq-item').classList.toggle('open', !open);
     });
   });
 
