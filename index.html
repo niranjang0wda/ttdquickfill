@@ -53,7 +53,7 @@
   h1,h2,h3{font-family:var(--serif); font-weight:700; line-height:1.15; margin:0;}
 
   header{position:sticky; top:0; z-index:20; background:color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-bottom:1px solid var(--line); padding-top: env(safe-area-inset-top,0px);}
-  .nav{display:flex; align-items:center; justify-content:space-between; padding:16px 24px; max-width:1080px; margin:0 auto;}
+  .nav{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; row-gap:10px; padding:16px 24px; max-width:1080px; margin:0 auto;}
   .brand{display:flex; align-items:center; gap:10px; font-family:var(--serif); font-weight:700; font-size:1.2rem;}
   .brand-mark{width:32px; height:32px; border-radius:9px; background:var(--blue); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
   .brand-mark svg{width:18px; height:18px;}
@@ -61,6 +61,10 @@
   .nav-links a{text-decoration:none; color:var(--ink-soft);}
   .nav-links a:hover{color:var(--ink);}
   .nav-cta{background:var(--blue); color:#fff; padding:9px 18px; border-radius:10px; text-decoration:none; font-weight:600; font-size:0.9rem; white-space:nowrap;}
+  .nav-ctas{display:flex; align-items:center; gap:10px;}
+  .nav-cta-apk{background:var(--surface); color:var(--ink); border:1px solid var(--line); display:inline-flex; align-items:center; gap:6px;}
+  .nav-cta-apk:hover{border-color:var(--maroon); color:var(--maroon);}
+  .price-badge{background:var(--maroon-soft); color:var(--maroon); font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:999px;}
   @media(min-width:760px){ .nav-links{display:flex;} }
 
   section{padding:64px 0;}
@@ -142,7 +146,10 @@
       <a href="#features">Features</a>
       <a href="#apk">APK</a>
     </nav>
-    <a class="nav-cta" href="https://chromewebstore.google.com/detail/ttd-quickfill/fdepehalbjlpbcoicjnjadnbohcjeghh" target="_blank" rel="noopener">Install</a>
+    <div class="nav-ctas">
+      <a class="nav-cta nav-cta-apk" href="ttdquickfill.apk" download>Download APK <span class="price-badge">₹499</span></a>
+      <a class="nav-cta" href="https://chromewebstore.google.com/detail/ttd-quickfill/fdepehalbjlpbcoicjnjadnbohcjeghh" target="_blank" rel="noopener">Install</a>
+    </div>
   </div>
 </header>
 
@@ -154,7 +161,7 @@
       <p class="sub">TTD QuickFill helps you quickly fill your booking details, saving time during the Special Entry Darshan booking process.</p>
       <div class="btn-row">
         <a class="btn btn-primary" href="https://chromewebstore.google.com/detail/ttd-quickfill/fdepehalbjlpbcoicjnjadnbohcjeghh" target="_blank" rel="noopener">Install Chrome Extension</a>
-        <a class="btn btn-outline" href="#apk">Download APK</a>
+        <a class="btn btn-outline" href="#apk">Download APK <span class="price-badge">₹499</span></a>
       </div>
       <p class="hero-note">Works on computers and laptops with Chrome.</p>
     </div>
@@ -206,10 +213,9 @@
   <section id="apk">
     <div class="apk">
       <div class="wrap">
-        <h2>Prefer Android? Download the APK</h2>
-        <p>Get TTD QuickFill as a standalone app for your Android device.</p>
+        <h2>Prefer Android? Get the App</h2>
+        <p>Get TTD QuickFill as a standalone Android app — ₹499, limited time offer.</p>
         <a class="btn btn-primary" href="ttdquickfill.apk" download>Download APK</a>
-        <p class="apk-link-note">Downloads <code>ttdquickfill.apk</code> from the same folder as this page.</p>
       </div>
     </div>
   </section>
@@ -228,7 +234,6 @@
     <div class="footer-links">
       <a href="https://chromewebstore.google.com/detail/ttd-quickfill/fdepehalbjlpbcoicjnjadnbohcjeghh" target="_blank" rel="noopener">Chrome Extension</a>
       <a href="#apk">APK Download</a>
-      <a href="#" onclick="return false;">Privacy Policy</a>
       <a href="#" onclick="return false;">Contact</a>
     </div>
   </div>
