@@ -146,7 +146,7 @@ p{margin:0 0 1em}
 /* ---------- Demo ---------- */
 .video-frame{max-width:920px;margin:0 auto;padding:10px;border-radius:28px;background:linear-gradient(135deg,#F0D08A,var(--gold) 40%,#9C6B1E 70%,#E9C572);box-shadow:0 30px 60px -30px rgba(54,10,22,.6)}
 .video-inner{border-radius:20px;overflow:hidden;background:var(--maroon-deep);outline:1px solid rgba(255,255,255,.3);outline-offset:-5px}
-.video-inner iframe{display:block;width:100%;height:auto;aspect-ratio:9/16;border:0;background:#1a0509}
+.video-inner video{display:block;width:100%;height:auto;aspect-ratio:9/16;object-fit:contain;background:#1a0509}
 #demo .video-frame{max-width:min(400px,100%)}
 .demo-note{text-align:center;color:var(--muted);margin:22px auto 0;max-width:52ch}
 
@@ -497,7 +497,10 @@ footer{background:var(--maroon-deep);color:rgba(251,244,228,.75);padding:44px 0 
       </div>
       <div class="video-frame reveal">
         <div class="video-inner">
-          <iframe src="https://www.youtube-nocookie.com/embed/lLCgJsNdsQs?rel=0&amp;playsinline=1" title="TTD QuickFill demo video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <video controls playsinline preload="metadata" aria-label="TTD QuickFill demo video">
+              <source src="https://cdn.jsdelivr.net/gh/niranjang0wda/ttdquickfill@main/demo.mp4" type="video/mp4">
+              Your browser can't play this video. <a href="https://cdn.jsdelivr.net/gh/niranjang0wda/ttdquickfill@main/demo.mp4">Watch the demo (MP4)</a>.
+            </video>
         </div>
       </div>
       <p class="demo-note reveal">Watch how TTD QuickFill helps you fill your booking details faster.</p>
@@ -547,7 +550,10 @@ footer{background:var(--maroon-deep);color:rgba(251,244,228,.75);padding:44px 0 
       <div class="install-grid">
         <div class="video-frame reveal">
           <div class="video-inner">
-            <iframe src="https://www.youtube-nocookie.com/embed/aD8mqPbIGZM?rel=0&amp;playsinline=1" title="How to install the TTD QuickFill Android app" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <video controls playsinline preload="metadata" aria-label="How to install the TTD QuickFill Android app">
+              <source src="https://cdn.jsdelivr.net/gh/niranjang0wda/ttdquickfill@main/install.mp4" type="video/mp4">
+              Your browser can't play this video. <a href="https://cdn.jsdelivr.net/gh/niranjang0wda/ttdquickfill@main/install.mp4">Watch the install video (MP4)</a>.
+            </video>
           </div>
         </div>
         <div class="reveal">
