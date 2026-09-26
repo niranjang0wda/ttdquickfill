@@ -357,6 +357,11 @@ footer{background:var(--maroon-deep);color:rgba(251,244,228,.75);padding:44px 0 
 .install-steps h3{font-size:1.12rem;margin:2px 0 2px}
 .install-steps p{margin:0;color:var(--muted);font-size:.98rem}
 .install-cta{margin-top:22px}
+.safety-note{margin-top:22px;display:flex;gap:14px;align-items:flex-start;padding:16px 18px;border:1.5px solid var(--saffron);border-left-width:5px;border-radius:12px;background:#FFF6EC;color:var(--ink)}
+.safety-note .ico{flex:none;font-size:1.5rem;line-height:1.2}
+.safety-note h3{margin:0 0 4px;font:600 1.05rem/1.35 var(--body);color:var(--maroon)}
+.safety-note p{margin:0 0 6px;font-size:.97rem;line-height:1.55}
+.safety-note p:last-child{margin-bottom:0}
 .install-help{margin:14px 0 0;font-size:.93rem;color:var(--muted)}
 
 @media (max-width:900px){
@@ -563,6 +568,14 @@ footer{background:var(--maroon-deep);color:rgba(251,244,228,.75);padding:44px 0 
             <li><span class="n" aria-hidden="true">3</span><div><h3>Allow the install</h3><p>If Android asks, tap <strong>Settings</strong> and turn on <strong>Allow from this source</strong> for your browser or Files app, then go back.</p></div></li>
             <li><span class="n" aria-hidden="true">4</span><div><h3>Install and open</h3><p>Tap <strong>Install</strong>, then <strong>Open</strong>. If Play Protect shows a notice, tap <strong>More details → Install anyway</strong>.</p></div></li>
           </ol>
+          <div class="safety-note" role="note" aria-labelledby="safety-title">
+            <span class="ico" aria-hidden="true">⚠️</span>
+            <div>
+              <h3 id="safety-title">Our app asks for no permissions</h3>
+              <p>TTD QuickFill does <strong>not</strong> ask for any permission: no notifications, camera, contacts, location, phone, SMS, storage or anything else.</p>
+              <p>If an app called TTD QuickFill asks you for any permission, <strong>it is not ours</strong>. Uninstall it right away. Download the APK only from the buttons on this page, never from unknown websites, WhatsApp forwards or Telegram groups.</p>
+            </div>
+          </div>
           <div class="install-cta">
             <a class="btn btn-maroon" href="https://github.com/niranjang0wda/ttdquickfill-updates/releases/download/v1.4/TTDQuickFill-1.4.apk">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 4v11M7 10.5l5 5 5-5M5 20h14"/></svg>
@@ -696,6 +709,10 @@ footer{background:var(--maroon-deep);color:rgba(251,244,228,.75);padding:44px 0 
         <div class="faq-item">
           <h3 style="margin:0;font:inherit"><button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-7">Do I need a subscription?<span class="pm" aria-hidden="true"></span></button></h3>
           <div class="faq-a" id="faq-7" role="region"><div><p>No. The Android app is a one-time <span data-price>₹499</span> purchase.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 style="margin:0;font:inherit"><button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-8">What permissions does the Android app need?<span class="pm" aria-hidden="true"></span></button></h3>
+          <div class="faq-a" id="faq-8" role="region"><div><p>None. TTD QuickFill never asks for notifications, camera, contacts, location, phone, SMS or any other permission. If an app with our name asks for any of these, it is a fake. Uninstall it and download only from the official link on this page.</p></div></div>
         </div>
       </div>
     </div>
