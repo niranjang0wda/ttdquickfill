@@ -129,6 +129,19 @@ p{margin:0 0 1em}
 @keyframes blink{50%{opacity:0}}
 .field .tick{position:absolute;right:10px;top:50%;width:16px;height:16px;margin-top:-8px;opacity:0;transform:scale(.4);transition:opacity .25s,transform .25s}
 .field.done .tick{opacity:1;transform:none}
+/* Tap-to-fill control */
+.fill-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 12px;padding:8px 8px 8px 12px;background:#FFF6EA;border:1.5px dashed rgba(217,105,31,.55);border-radius:12px}
+.fill-cue{display:flex;align-items:center;gap:7px;font-size:.86rem;font-weight:600;color:var(--maroon);line-height:1.25}
+.fill-cue .hand{display:inline-block;font-size:1.05rem;animation:nudge 1.2s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
+.fill-btn{flex:none;display:inline-flex;align-items:center;gap:6px;border:0;cursor:pointer;font:inherit;font-weight:700;font-size:.95rem;color:#fff;padding:9px 18px;border-radius:999px;background:linear-gradient(180deg,#E8823A,var(--saffron));box-shadow:0 8px 16px -8px rgba(217,105,31,.9);animation:ping-btn 1.8s ease-out infinite;transition:transform .15s,filter .15s}
+.fill-btn:hover{filter:brightness(1.06)}
+.fill-btn:active{transform:scale(.95)}
+.fill-btn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.fill-btn[disabled]{cursor:default;opacity:.75;animation:none}
+.fill-btn.again{background:linear-gradient(180deg,#7A2236,var(--maroon));animation:none;box-shadow:0 8px 16px -8px rgba(91,20,38,.8)}
+@keyframes ping-btn{0%{box-shadow:0 0 0 0 rgba(217,105,31,.55)}70%{box-shadow:0 0 0 12px rgba(217,105,31,0)}100%{box-shadow:0 0 0 0 rgba(217,105,31,0)}}
+.fill-done-msg{font-size:.86rem;font-weight:600;color:#2E8B57}
 .mock-hint{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:.86rem;color:var(--muted);opacity:.35;transition:opacity .4s}
 .mock-hint.show{opacity:1;color:var(--maroon)}
 .mock-hint svg{width:16px;height:16px;flex:none}
@@ -149,6 +162,13 @@ p{margin:0 0 1em}
 .video-inner video{display:block;width:100%;height:auto;aspect-ratio:9/16;object-fit:contain;background:#1a0509}
 #demo .video-frame{max-width:min(400px,100%)}
 .demo-note{text-align:center;color:var(--muted);margin:22px auto 0;max-width:52ch}
+.live-badge{display:inline-flex;align-items:center;gap:8px;margin:0 auto 12px;padding:6px 14px;border-radius:999px;background:#C62828;color:#fff;font-weight:700;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 8px 18px -10px rgba(198,40,40,.9)}
+.live-badge .rec{width:9px;height:9px;border-radius:50%;background:#fff;animation:rec 1.2s ease-in-out infinite}
+@keyframes rec{50%{opacity:.25}}
+.demo-sub{text-align:center;font-size:1.08rem;color:var(--ink);margin:8px auto 0;max-width:46ch}
+.demo-sub strong{color:var(--maroon)}
+.demo-points{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 10px;margin:14px auto 22px;padding:0;list-style:none}
+.demo-points li{background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 13px;font-size:.88rem;font-weight:600;color:var(--maroon)}
 
 /* ---------- Steps ---------- */
 .steps-sec{background:linear-gradient(180deg,var(--ivory) 0%,var(--ivory-2) 100%)}
@@ -446,11 +466,15 @@ footer{background:var(--maroon-deep);color:rgba(251,244,228,.75);padding:44px 0 
       </div>
 
       <div class="mock-wrap enter" style="--i:3">
-        <div class="mock" role="img" aria-label="Sample booking form with name, age, gender, ID proof, mobile number and email being filled in from saved details">
+        <div class="mock" role="group" aria-label="Try it: sample pilgrim details form that fills in from saved details when you tap Fill">
           <div class="mock-top" aria-hidden="true">
             <svg class="gopuram" viewBox="0 0 400 480"><use href="#gopuram"/></svg>
             <div class="mock-title">Pilgrim details</div>
             <div class="mock-tag">Sample form</div>
+          </div>
+          <div class="fill-bar">
+            <span class="fill-cue" id="fill-cue" aria-live="polite"><span class="hand" aria-hidden="true">👉</span>Tap <em>Fill</em> to see it in action</span>
+            <button type="button" class="fill-btn" id="fill-btn">⚡ Fill</button>
           </div>
           <div class="fields" aria-hidden="true">
             <div class="field full" id="f-name"><label>Name</label><span class="val" data-ph="Full name"></span><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#2E8B57"/><path d="M4.5 8.2l2.3 2.3 4.7-4.8" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div>
@@ -498,17 +522,24 @@ footer{background:var(--maroon-deep);color:rgba(251,244,228,.75);padding:44px 0 
     <div class="wrap">
       <div class="sec-head reveal">
         <div class="strip short" aria-hidden="true"></div>
+        <span class="live-badge"><span class="rec" aria-hidden="true"></span>Live booking video</span>
         <h2 id="demo-title">See TTD QuickFill in Action</h2>
+        <p class="demo-sub">Watch a <strong>real TTD booking</strong>, recorded live — every pilgrim's details filled in <strong>seconds, not minutes</strong>.</p>
       </div>
+      <ul class="demo-points reveal" aria-label="What you'll see in the video">
+        <li>▶ Real booking on the TTD site</li>
+        <li>⚡ One-tap fill</li>
+        <li>⏱ Beat the rush</li>
+      </ul>
       <div class="video-frame reveal">
         <div class="video-inner">
-          <video controls playsinline preload="metadata" aria-label="TTD QuickFill demo video">
+          <video controls playsinline preload="metadata" aria-label="Live TTD booking video using TTD QuickFill">
               <source src="https://cdn.jsdelivr.net/gh/niranjang0wda/ttdquickfill@main/demo.mp4" type="video/mp4">
-              Your browser can't play this video. <a href="https://cdn.jsdelivr.net/gh/niranjang0wda/ttdquickfill@main/demo.mp4">Watch the demo (MP4)</a>.
+              Your browser can't play this video. <a href="https://cdn.jsdelivr.net/gh/niranjang0wda/ttdquickfill@main/demo.mp4">Watch the live booking video (MP4)</a>.
             </video>
         </div>
       </div>
-      <p class="demo-note reveal">Watch how TTD QuickFill helps you fill your booking details faster.</p>
+      <p class="demo-note reveal">▶ Press play and watch the full booking — then try it yourself on your next darshan booking.</p>
     </div>
   </section>
 
@@ -921,23 +952,34 @@ const CONFIG = {
     data.forEach(([id]) => { const f = fieldEl(id); f.querySelector('.val').textContent = ''; f.classList.remove('done', 'active'); });
     hint.classList.remove('show');
   }
-  async function loop() {
-    for (;;) {
-      resetAll();
-      await sleep(900);
-      for (const [id, v] of data) {
-        const f = fieldEl(id), out = f.querySelector('.val');
-        f.classList.add('active');
-        for (let i = 1; i <= v.length; i++) { out.textContent = v.slice(0, i); await sleep(v.length > 10 ? 30 : 60); }
-        f.classList.remove('active'); f.classList.add('done');
-        await sleep(180);
-      }
-      hint.classList.add('show');
-      await sleep(4500);
-      while (document.hidden) await sleep(1000);
+  const fillBtn = document.getElementById('fill-btn');
+  const cue = document.getElementById('fill-cue');
+  let running = false, filled = false;
+  async function typeAll() {
+    for (const [id, v] of data) {
+      const f = fieldEl(id), out = f.querySelector('.val');
+      f.classList.add('active');
+      for (let i = 1; i <= v.length; i++) { out.textContent = v.slice(0, i); await sleep(v.length > 10 ? 22 : 45); }
+      f.classList.remove('active'); f.classList.add('done');
+      await sleep(120);
     }
+    hint.classList.add('show');
   }
-  reduced ? fillAll() : loop();
+  fillBtn.addEventListener('click', async () => {
+    if (running) return;
+    if (filled) {                       // second tap = reset so they can watch again
+      resetAll(); filled = false;
+      fillBtn.textContent = '⚡ Fill'; fillBtn.classList.remove('again');
+      cue.innerHTML = '<span class="hand" aria-hidden="true">👉</span>Tap <em>Fill</em> to see it in action';
+      return;
+    }
+    running = true; fillBtn.disabled = true; fillBtn.textContent = 'Filling…';
+    cue.textContent = 'Filling saved details…';
+    if (reduced) fillAll(); else await typeAll();
+    running = false; filled = true; fillBtn.disabled = false;
+    fillBtn.textContent = '↺ Try again'; fillBtn.classList.add('again');
+    cue.innerHTML = '<span class="fill-done-msg">✓ All details filled in one tap!</span>';
+  });
 
   // FAQ accordion
   document.querySelectorAll('.faq-q').forEach(btn => {
