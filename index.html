@@ -146,6 +146,21 @@ p{margin:0 0 1em}
 .mock-hint{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:.86rem;color:var(--muted);opacity:.35;transition:opacity .4s}
 .mock-hint.show{opacity:1;color:var(--maroon)}
 .mock-hint svg{width:16px;height:16px;flex:none}
+/* Copy-paste demo: copy bar + paste bubble */
+.field .paste-bubble{position:absolute;top:-26px;left:12px;z-index:2;background:#1F2328;color:#fff;font-size:.72rem;font-weight:600;padding:3px 10px;border-radius:6px;opacity:0;transform:translateY(4px);transition:opacity .2s,transform .2s;pointer-events:none}
+.field .paste-bubble::after{content:"";position:absolute;left:14px;bottom:-5px;border:5px solid transparent;border-bottom:0;border-top-color:#1F2328}
+.field.pasting .paste-bubble{opacity:1;transform:none}
+.cbar{margin-top:14px;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:8px 10px 10px}
+.cbar-title{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.cbar-chips{display:flex;flex-wrap:wrap;gap:6px}
+.cchip{display:inline-flex;align-items:center;gap:4px;max-width:100%;border:1.5px solid var(--line);background:var(--ivory);border-radius:999px;padding:3px 10px;font-size:.8rem;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:transform .15s,border-color .2s,background .2s,box-shadow .2s}
+.cchip .k{color:var(--muted);font-weight:400}
+.cchip.press{transform:scale(.93)}
+.cchip.on{border-color:var(--saffron);background:#FFF0E0;box-shadow:0 0 0 3px rgba(217,105,31,.18)}
+.cchip.on::before{content:"On clipboard ·";color:var(--saffron);font-weight:700}
+.cchip.done{border-color:#8CC4A0;background:#E7F4EB}
+.cchip.done::after{content:"✓";color:#2E8B57}
+@media (max-width:420px){.cchip{font-size:.74rem}}
 .mock-badge{position:absolute;left:50%;bottom:-17px;transform:translateX(-50%);white-space:nowrap;background:linear-gradient(180deg,#E8823A,var(--saffron));color:#fff;font-weight:600;font-size:.88rem;padding:7px 18px;border-radius:999px;box-shadow:0 8px 18px -8px rgba(217,105,31,.8);border:2px solid var(--ivory)}
 
 /* ---------- Trust ---------- */
@@ -462,24 +477,32 @@ footer{background:var(--maroon-deep);color:rgba(251,244,228,.75);padding:44px 0 
           <div class="mock-top" aria-hidden="true">
             <svg class="gopuram" viewBox="0 0 400 480"><use href="#gopuram"/></svg>
             <div class="mock-title">Pilgrim details</div>
-            <div class="mock-tag">Sample form</div>
+            <div class="mock-tag">Sample TTD form</div>
           </div>
           <div class="fill-bar">
             <span class="fill-cue" id="fill-cue" aria-live="polite"><span class="hand" aria-hidden="true">👉</span>Tap <em>Play</em> to see how it works</span>
             <button type="button" class="fill-btn" id="fill-btn">▶ Play</button>
           </div>
           <div class="fields" aria-hidden="true">
-            <div class="field full" id="f-name"><label>Name</label><span class="val" data-ph="Full name"></span><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#2E8B57"/><path d="M4.5 8.2l2.3 2.3 4.7-4.8" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div>
-            <div class="field" id="f-age"><label>Age</label><span class="val" data-ph="Age"></span><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#2E8B57"/><path d="M4.5 8.2l2.3 2.3 4.7-4.8" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div>
-            <div class="field" id="f-gender"><label>Gender</label><span class="val" data-ph="Select"></span><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#2E8B57"/><path d="M4.5 8.2l2.3 2.3 4.7-4.8" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div>
-            <div class="field full" id="f-id"><label>ID proof</label><span class="val" data-ph="ID type and number"></span><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#2E8B57"/><path d="M4.5 8.2l2.3 2.3 4.7-4.8" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div>
-            <div class="field full" id="f-email"><label>Email</label><span class="val" data-ph="you@mail.com"></span><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#2E8B57"/><path d="M4.5 8.2l2.3 2.3 4.7-4.8" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div>
+            <div class="field full" id="f-name"><span class="paste-bubble">Paste</span><label>Pilgrim 1 · Name</label><span class="val" data-ph="Full name"></span><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#2E8B57"/><path d="M4.5 8.2l2.3 2.3 4.7-4.8" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div>
+            <div class="field" id="f-age"><span class="paste-bubble">Paste</span><label>Age</label><span class="val" data-ph="Age"></span><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#2E8B57"/><path d="M4.5 8.2l2.3 2.3 4.7-4.8" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div>
+            <div class="field" id="f-gender"><span class="paste-bubble">Paste</span><label>Gender</label><span class="val" data-ph="Select"></span><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#2E8B57"/><path d="M4.5 8.2l2.3 2.3 4.7-4.8" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div>
+            <div class="field full" id="f-id"><span class="paste-bubble">Paste</span><label>Aadhaar number</label><span class="val" data-ph="12-digit number"></span><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#2E8B57"/><path d="M4.5 8.2l2.3 2.3 4.7-4.8" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div>
+            <div class="field full" id="f-name2"><span class="paste-bubble">Paste</span><label>Pilgrim 2 · Name</label><span class="val" data-ph="Full name"></span><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#2E8B57"/><path d="M4.5 8.2l2.3 2.3 4.7-4.8" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div>
+          </div>
+          <div class="cbar" aria-hidden="true">
+            <div class="cbar-title">QuickFill copy bar</div>
+            <div class="cbar-chips">
+              <span class="cchip" id="c-name"><span class="k">Name</span> Ramesh Kumar</span>
+              <span class="cchip" id="c-id"><span class="k">Aadhaar</span> XXXX XXXX 4821</span>
+              <span class="cchip" id="c-name2"><span class="k">P2 Name</span> Lakshmi Devi</span>
+            </div>
           </div>
           <div class="mock-hint" id="mock-hint" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4.5M12 16h.01"/></svg>
-            Name, ID and email pasted. Age typed, gender picked by you. Review, then continue on the TTD site.
+            Tap once, then just keep pasting. Ages and dropdowns you fill yourself, then review and continue on the TTD site.
           </div>
-          <span class="mock-badge">Copy • Paste • Done</span>
+          <span class="mock-badge">Tap once • Keep pasting</span>
         </div>
       </div>
     </div>
@@ -889,45 +912,68 @@ const CONFIG = {
     targets.forEach(el => io.observe(el));
   }
 
-  // Hero demo: how copy-paste works. Pasted values appear at once,
-  // the age is typed, gender is picked, like on the real TTD form.
-  const data = [
-    ['f-name',   'Ramesh Kumar',           'paste', 'Copied Name → pasted'],
-    ['f-age',    '42',                     'type',  'Typing the age…'],
-    ['f-gender', 'Male',                   'pick',  'Picking gender…'],
-    ['f-id',     'Aadhaar  XXXX XXXX 4821','paste', 'Copied Aadhaar number → pasted'],
-    ['f-email',  'ramesh@example.com',     'paste', 'Copied Email → pasted']
-  ];
+  // Hero demo: what the extension / app does now. Tap one value in the copy
+  // bar, paste it; the next value is copied automatically, so you keep
+  // pasting. Age is typed and gender picked by the user.
   const hint = document.getElementById('mock-hint');
   const sleep = ms => new Promise(r => setTimeout(r, ms));
-  const fieldEl = id => document.getElementById(id);
+  const $ = id => document.getElementById(id);
   const fillBtn = document.getElementById('fill-btn');
   const cue = document.getElementById('fill-cue');
   const CUE_START = '<span class="hand" aria-hidden="true">👉</span>Tap <em>Play</em> to see how it works';
+  const FIELDS = { 'f-name': 'Ramesh Kumar', 'f-age': '42', 'f-gender': 'Male', 'f-id': 'XXXX XXXX 4821', 'f-name2': 'Lakshmi Devi' };
+  const CHIPS = ['c-name', 'c-id', 'c-name2'];
 
-  function showAll() {
-    data.forEach(([id, v]) => { const f = fieldEl(id); f.querySelector('.val').textContent = v; f.classList.add('done'); });
-    hint.classList.add('show');
+  function setChip(id, state) {           // state: '', 'on', 'done'
+    const c = $(id); c.classList.remove('on', 'done'); if (state) c.classList.add(state);
   }
   function resetAll() {
-    data.forEach(([id]) => { const f = fieldEl(id); f.querySelector('.val').textContent = ''; f.classList.remove('done', 'active'); });
+    Object.keys(FIELDS).forEach(id => { const f = $(id); f.querySelector('.val').textContent = ''; f.classList.remove('done', 'active', 'pasting'); });
+    CHIPS.forEach(id => setChip(id, ''));
     hint.classList.remove('show');
   }
+  function showAll() {
+    Object.entries(FIELDS).forEach(([id, v]) => { const f = $(id); f.querySelector('.val').textContent = v; f.classList.add('done'); });
+    CHIPS.forEach(id => setChip(id, 'done'));
+    hint.classList.add('show');
+  }
+  async function paste(fieldId, chipId, nextChipId) {
+    const f = $(fieldId);
+    f.classList.add('active'); await sleep(350);
+    f.classList.add('pasting'); await sleep(550);          // long-press → Paste
+    f.querySelector('.val').textContent = FIELDS[fieldId];
+    f.classList.remove('pasting', 'active'); f.classList.add('done');
+    setChip(chipId, 'done');
+    if (nextChipId) { await sleep(250); setChip(nextChipId, 'on'); }
+    await sleep(450);
+  }
+  async function type(fieldId) {
+    const f = $(fieldId), out = f.querySelector('.val'), v = FIELDS[fieldId];
+    f.classList.add('active');
+    for (let i = 1; i <= v.length; i++) { out.textContent = v.slice(0, i); await sleep(170); }
+    await sleep(200); f.classList.remove('active'); f.classList.add('done'); await sleep(250);
+  }
+  async function pick(fieldId) {
+    const f = $(fieldId);
+    f.classList.add('active'); await sleep(550);
+    f.querySelector('.val').textContent = FIELDS[fieldId];
+    f.classList.remove('active'); f.classList.add('done'); await sleep(350);
+  }
   async function play() {
-    for (const [id, v, how, msg] of data) {
-      const f = fieldEl(id), out = f.querySelector('.val');
-      cue.textContent = msg;
-      f.classList.add('active');
-      if (how === 'type') {
-        for (let i = 1; i <= v.length; i++) { out.textContent = v.slice(0, i); await sleep(160); }
-      } else {
-        await sleep(how === 'pick' ? 500 : 380);
-        out.textContent = v;
-      }
-      await sleep(260);
-      f.classList.remove('active'); f.classList.add('done');
-      await sleep(180);
-    }
+    cue.textContent = 'Tap Name once in the copy bar…';
+    await sleep(500);
+    $('c-name').classList.add('press'); await sleep(180); $('c-name').classList.remove('press');
+    setChip('c-name', 'on'); await sleep(600);
+    cue.textContent = 'Paste into Name. The next value copies by itself.';
+    await paste('f-name', 'c-name', 'c-id');
+    cue.textContent = 'Type the age yourself…';
+    await type('f-age');
+    cue.textContent = 'Pick gender yourself…';
+    await pick('f-gender');
+    cue.textContent = 'Paste again: Aadhaar is already on the clipboard.';
+    await paste('f-id', 'c-id', 'c-name2');
+    cue.textContent = 'And again for the next pilgrim.';
+    await paste('f-name2', 'c-name2', null);
     hint.classList.add('show');
   }
   let running = false, played = false;
@@ -943,7 +989,7 @@ const CONFIG = {
     if (reduced) showAll(); else await play();
     running = false; played = true; fillBtn.disabled = false;
     fillBtn.textContent = '↺ Again'; fillBtn.classList.add('again');
-    cue.innerHTML = '<span class="fill-done-msg">✓ Details entered in seconds</span>';
+    cue.innerHTML = '<span class="fill-done-msg">✓ One tap, then just paste</span>';
   });
 
   // FAQ accordion
