@@ -161,6 +161,19 @@ p{margin:0 0 1em}
 .cchip.done{border-color:#8CC4A0;background:#E7F4EB}
 .cchip.done::after{content:"✓";color:#2E8B57}
 @media (max-width:420px){.cchip{font-size:.74rem}}
+.mock{position:relative}
+.field{position:relative;transition:border-color .2s,box-shadow .2s,background .2s}
+.field.focus{border-color:#127c8a;box-shadow:0 0 0 3px rgba(18,124,138,.18);background:#fff}
+.field .focus-tag{position:absolute;top:-11px;right:10px;z-index:3;background:#127c8a;color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.02em;padding:2px 8px;border-radius:999px;opacity:0;transform:translateY(3px);transition:opacity .2s,transform .2s}
+.field.copied .focus-tag{opacity:1;transform:none}
+.cbar{margin:0 0 14px}
+.cchip{transition:transform .15s,border-color .2s,background .2s,box-shadow .2s}
+.cchip.flash{border-color:#127c8a;background:#E3F3F5;box-shadow:0 0 0 3px rgba(18,124,138,.22);transform:translateY(-1px)}
+.cursor{position:absolute;left:0;top:0;width:22px;height:22px;z-index:6;pointer-events:none;opacity:0;transition:opacity .25s;filter:drop-shadow(0 2px 3px rgba(0,0,0,.35))}
+.cursor::before{content:"";position:absolute;inset:0;background:#1F2328;clip-path:polygon(0 0,0 70%,20% 55%,32% 82%,45% 76%,33% 50%,60% 50%);transform:scale(1.1)}
+.cursor.tap::after{content:"";position:absolute;left:-8px;top:-8px;width:34px;height:34px;border:2px solid #127c8a;border-radius:50%;animation:tapr .5s ease-out}
+@keyframes tapr{from{transform:scale(.3);opacity:.9}to{transform:scale(1);opacity:0}}
+@media (prefers-reduced-motion:reduce){.cursor{display:none}}
 .mock-badge{position:absolute;left:50%;bottom:-17px;transform:translateX(-50%);white-space:nowrap;background:linear-gradient(180deg,#E8823A,var(--saffron));color:#fff;font-weight:600;font-size:.88rem;padding:7px 18px;border-radius:999px;box-shadow:0 8px 18px -8px rgba(217,105,31,.8);border:2px solid var(--ivory)}
 
 /* ---------- Trust ---------- */
@@ -464,7 +477,7 @@ footer{background:var(--maroon-deep);color:rgba(251,244,228,.75);padding:44px 0 
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5a2.5 2.5 0 0 0-5 0V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7s2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5a2.5 2.5 0 0 0 0-5z"/></svg>
             Install Chrome Extension — FREE
           </a>
-          <a class="btn btn-line" href="https://github.com/niranjang0wda/ttdquickfill-updates/releases/download/v2.0/TTDQuickFill-2.0.apk" data-apk-link>
+          <a class="btn btn-line" href="https://github.com/niranjang0wda/ttdquickfill-updates/releases/download/v2.1/TTDQuickFill-2.1.apk" data-apk-link>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg>
             Download APK
           </a>
@@ -483,26 +496,27 @@ footer{background:var(--maroon-deep);color:rgba(251,244,228,.75);padding:44px 0 
             <span class="fill-cue" id="fill-cue" aria-live="polite"><span class="hand" aria-hidden="true">👉</span>Tap <em>Play</em> to see how it works</span>
             <button type="button" class="fill-btn" id="fill-btn">▶ Play</button>
           </div>
-          <div class="fields" aria-hidden="true">
-            <div class="field full" id="f-name"><span class="paste-bubble">Paste</span><label>Pilgrim 1 · Name</label><span class="val" data-ph="Full name"></span><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#2E8B57"/><path d="M4.5 8.2l2.3 2.3 4.7-4.8" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div>
-            <div class="field" id="f-age"><span class="paste-bubble">Paste</span><label>Age</label><span class="val" data-ph="Age"></span><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#2E8B57"/><path d="M4.5 8.2l2.3 2.3 4.7-4.8" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div>
-            <div class="field" id="f-gender"><span class="paste-bubble">Paste</span><label>Gender</label><span class="val" data-ph="Select"></span><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#2E8B57"/><path d="M4.5 8.2l2.3 2.3 4.7-4.8" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div>
-            <div class="field full" id="f-id"><span class="paste-bubble">Paste</span><label>Aadhaar number</label><span class="val" data-ph="12-digit number"></span><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#2E8B57"/><path d="M4.5 8.2l2.3 2.3 4.7-4.8" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div>
-            <div class="field full" id="f-name2"><span class="paste-bubble">Paste</span><label>Pilgrim 2 · Name</label><span class="val" data-ph="Full name"></span><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#2E8B57"/><path d="M4.5 8.2l2.3 2.3 4.7-4.8" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div>
-          </div>
           <div class="cbar" aria-hidden="true">
-            <div class="cbar-title">QuickFill copy bar</div>
+            <div class="cbar-title">📋 Your saved details</div>
             <div class="cbar-chips">
-              <span class="cchip" id="c-name"><span class="k">Name</span> Ramesh Kumar</span>
-              <span class="cchip" id="c-id"><span class="k">Aadhaar</span> XXXX XXXX 4821</span>
+              <span class="cchip" id="c-name"><span class="k">P1 Name</span> Ramesh Kumar</span>
+              <span class="cchip" id="c-id"><span class="k">P1 Aadhaar</span> XXXX XXXX 4821</span>
               <span class="cchip" id="c-name2"><span class="k">P2 Name</span> Lakshmi Devi</span>
             </div>
           </div>
+          <div class="fields" aria-hidden="true">
+            <div class="field full" id="f-name"><span class="focus-tag">Copied for you</span><span class="paste-bubble">Ctrl+V</span><label>Pilgrim 1 · Name</label><span class="val" data-ph="Full name"></span><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#2E8B57"/><path d="M4.5 8.2l2.3 2.3 4.7-4.8" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div>
+            <div class="field" id="f-age"><span class="focus-tag">Copied for you</span><span class="paste-bubble">Ctrl+V</span><label>Age</label><span class="val" data-ph="Age"></span><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#2E8B57"/><path d="M4.5 8.2l2.3 2.3 4.7-4.8" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div>
+            <div class="field" id="f-gender"><span class="focus-tag">Copied for you</span><span class="paste-bubble">Ctrl+V</span><label>Gender</label><span class="val" data-ph="Select"></span><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#2E8B57"/><path d="M4.5 8.2l2.3 2.3 4.7-4.8" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div>
+            <div class="field full" id="f-id"><span class="focus-tag">Copied for you</span><span class="paste-bubble">Ctrl+V</span><label>Pilgrim 1 · Aadhaar number</label><span class="val" data-ph="12-digit number"></span><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#2E8B57"/><path d="M4.5 8.2l2.3 2.3 4.7-4.8" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div>
+            <div class="field full" id="f-name2"><span class="focus-tag">Copied for you</span><span class="paste-bubble">Ctrl+V</span><label>Pilgrim 2 · Name</label><span class="val" data-ph="Full name"></span><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#2E8B57"/><path d="M4.5 8.2l2.3 2.3 4.7-4.8" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></div>
+          </div>
+          <span class="cursor" id="cursor" aria-hidden="true"></span>
           <div class="mock-hint" id="mock-hint" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4.5M12 16h.01"/></svg>
-            Tap once, then just keep pasting. Ages and dropdowns you fill yourself, then review and continue on the TTD site.
+            Click a field, press Ctrl+V. Type the age and pick gender yourself, then review and continue on the TTD site.
           </div>
-          <span class="mock-badge">Tap once • Keep pasting</span>
+          <span class="mock-badge">Click · Paste · Done</span>
         </div>
       </div>
     </div>
@@ -622,7 +636,7 @@ footer{background:var(--maroon-deep);color:rgba(251,244,228,.75);padding:44px 0 
             </div>
           </div>
           <div class="install-cta">
-            <a class="btn btn-maroon" href="https://github.com/niranjang0wda/ttdquickfill-updates/releases/download/v2.0/TTDQuickFill-2.0.apk" data-apk-link>
+            <a class="btn btn-maroon" href="https://github.com/niranjang0wda/ttdquickfill-updates/releases/download/v2.1/TTDQuickFill-2.1.apk" data-apk-link>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 4v11M7 10.5l5 5 5-5M5 20h14"/></svg>
               Download APK
             </a>
@@ -690,7 +704,7 @@ footer{background:var(--maroon-deep);color:rgba(251,244,228,.75);padding:44px 0 
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Details saved only on your phone</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>No subscription: buy a pass when you need one</li>
           </ul>
-          <a class="btn btn-gold" href="https://github.com/niranjang0wda/ttdquickfill-updates/releases/download/v2.0/TTDQuickFill-2.0.apk" data-apk-link>Download TTD QuickFill APK</a>
+          <a class="btn btn-gold" href="https://github.com/niranjang0wda/ttdquickfill-updates/releases/download/v2.1/TTDQuickFill-2.1.apk" data-apk-link>Download TTD QuickFill APK</a>
           <p class="pay-note">The APK downloads free from our official GitHub release page. Inside the app, tap <strong>Buy 1-day access</strong> to pay <span data-price>₹50</span> by UPI or card through Dodo Payments. Your 24 hours start when the pass is activated, right after payment.</p>
         </article>
 
@@ -779,7 +793,7 @@ footer{background:var(--maroon-deep);color:rgba(251,244,228,.75);padding:44px 0 
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5a2.5 2.5 0 0 0-5 0V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7s2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5a2.5 2.5 0 0 0 0-5z"/></svg>
           Install Chrome Extension — FREE
         </a>
-        <a class="btn btn-line" href="https://github.com/niranjang0wda/ttdquickfill-updates/releases/download/v2.0/TTDQuickFill-2.0.apk" data-apk-link>
+        <a class="btn btn-line" href="https://github.com/niranjang0wda/ttdquickfill-updates/releases/download/v2.1/TTDQuickFill-2.1.apk" data-apk-link>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg>
           Download APK
         </a>
@@ -884,9 +898,9 @@ const CONFIG = {
   contactEmail: "niranjan.v@hotmail.com",                                                   // support email
   price: "₹50",                                                                             // Android 24-hour pass (what users pay)
   regularPrice: "₹100",                                                                     // shown struck through as "50% off"
-  apkVersion: "2.0",
+  apkVersion: "2.1",
   // Must match the GitHub release tag and file name you upload:
-  apkUrl: "https://github.com/niranjang0wda/ttdquickfill-updates/releases/download/v2.0/TTDQuickFill-2.0.apk"
+  apkUrl: "https://github.com/niranjang0wda/ttdquickfill-updates/releases/download/v2.1/TTDQuickFill-2.1.apk"
 };
 
 (function () {
@@ -912,84 +926,86 @@ const CONFIG = {
     targets.forEach(el => io.observe(el));
   }
 
-  // Hero demo: what the extension / app does now. Tap one value in the copy
-  // bar, paste it; the next value is copied automatically, so you keep
-  // pasting. Age is typed and gender picked by the user.
+  // Hero demo: copy on focus, exactly how the extension works now. The cursor
+  // clicks a field; its saved value is "already copied", so a Ctrl+V bubble
+  // shows and the value appears. Age is typed, gender picked — by the user.
   const hint = document.getElementById('mock-hint');
+  const cursor = document.getElementById('cursor');
   const sleep = ms => new Promise(r => setTimeout(r, ms));
   const $ = id => document.getElementById(id);
   const fillBtn = document.getElementById('fill-btn');
   const cue = document.getElementById('fill-cue');
   const CUE_START = '<span class="hand" aria-hidden="true">👉</span>Tap <em>Play</em> to see how it works';
-  const FIELDS = { 'f-name': 'Ramesh Kumar', 'f-age': '42', 'f-gender': 'Male', 'f-id': 'XXXX XXXX 4821', 'f-name2': 'Lakshmi Devi' };
-  const CHIPS = ['c-name', 'c-id', 'c-name2'];
+  const FIELDS = { 'f-name':'Ramesh Kumar','f-age':'42','f-gender':'Male','f-id':'XXXX XXXX 4821','f-name2':'Lakshmi Devi' };
+  // field -> which copy-bar chip lights up as "copied for you"
+  const CHIP = { 'f-name':'c-name','f-id':'c-id','f-name2':'c-name2' };
+  const ALL = Object.keys(FIELDS);
 
-  function setChip(id, state) {           // state: '', 'on', 'done'
-    const c = $(id); c.classList.remove('on', 'done'); if (state) c.classList.add(state);
-  }
-  function resetAll() {
-    Object.keys(FIELDS).forEach(id => { const f = $(id); f.querySelector('.val').textContent = ''; f.classList.remove('done', 'active', 'pasting'); });
-    CHIPS.forEach(id => setChip(id, ''));
-    hint.classList.remove('show');
+  function reset() {
+    ALL.forEach(id => { const f=$(id); f.querySelector('.val').textContent=''; f.classList.remove('done','focus','copied'); });
+    ['c-name','c-id','c-name2'].forEach(id=>$(id).classList.remove('flash'));
+    cursor.style.opacity='0'; hint.classList.remove('show');
   }
   function showAll() {
-    Object.entries(FIELDS).forEach(([id, v]) => { const f = $(id); f.querySelector('.val').textContent = v; f.classList.add('done'); });
-    CHIPS.forEach(id => setChip(id, 'done'));
+    ALL.forEach(id => { const f=$(id); f.querySelector('.val').textContent=FIELDS[id]; f.classList.add('done'); });
     hint.classList.add('show');
   }
-  async function paste(fieldId, chipId, nextChipId) {
-    const f = $(fieldId);
-    f.classList.add('active'); await sleep(350);
-    f.classList.add('pasting'); await sleep(550);          // long-press → Paste
-    f.querySelector('.val').textContent = FIELDS[fieldId];
-    f.classList.remove('pasting', 'active'); f.classList.add('done');
-    setChip(chipId, 'done');
-    if (nextChipId) { await sleep(250); setChip(nextChipId, 'on'); }
-    await sleep(450);
+  async function moveCursorTo(el) {
+    const host = document.querySelector('.mock').getBoundingClientRect();
+    const r = el.getBoundingClientRect();
+    cursor.style.opacity='1';
+    cursor.style.left = (r.left - host.left + r.width*0.5) + 'px';
+    cursor.style.top  = (r.top - host.top + r.height*0.6) + 'px';
+    cursor.style.transition='left .5s cubic-bezier(.5,0,.3,1),top .5s cubic-bezier(.5,0,.3,1),opacity .25s';
+    await sleep(520);
+    cursor.classList.add('tap'); await sleep(260); cursor.classList.remove('tap');
   }
-  async function type(fieldId) {
-    const f = $(fieldId), out = f.querySelector('.val'), v = FIELDS[fieldId];
-    f.classList.add('active');
-    for (let i = 1; i <= v.length; i++) { out.textContent = v.slice(0, i); await sleep(170); }
-    await sleep(200); f.classList.remove('active'); f.classList.add('done'); await sleep(250);
+  async function focusPaste(fieldId) {
+    const f=$(fieldId); await moveCursorTo(f);
+    f.classList.add('focus');                       // user clicks in
+    const chip=CHIP[fieldId]; if(chip){ $(chip).classList.add('flash'); f.classList.add('copied'); }
+    await sleep(600);                               // "copied for you"
+    f.classList.add('pasting'); await sleep(450);   // Ctrl+V bubble
+    f.querySelector('.val').textContent=FIELDS[fieldId];
+    f.classList.remove('pasting','focus'); f.classList.add('done');
+    if(chip) $(chip).classList.remove('flash');
+    await sleep(350);
   }
-  async function pick(fieldId) {
-    const f = $(fieldId);
-    f.classList.add('active'); await sleep(550);
-    f.querySelector('.val').textContent = FIELDS[fieldId];
-    f.classList.remove('active'); f.classList.add('done'); await sleep(350);
+  async function typeField(fieldId) {
+    const f=$(fieldId), out=f.querySelector('.val'), v=FIELDS[fieldId];
+    await moveCursorTo(f); f.classList.add('focus');
+    for(let i=1;i<=v.length;i++){ out.textContent=v.slice(0,i); await sleep(170); }
+    await sleep(150); f.classList.remove('focus'); f.classList.add('done'); await sleep(250);
+  }
+  async function pickField(fieldId) {
+    const f=$(fieldId); await moveCursorTo(f); f.classList.add('focus'); await sleep(450);
+    f.querySelector('.val').textContent=FIELDS[fieldId];
+    f.classList.remove('focus'); f.classList.add('done'); await sleep(300);
   }
   async function play() {
-    cue.textContent = 'Tap Name once in the copy bar…';
-    await sleep(500);
-    $('c-name').classList.add('press'); await sleep(180); $('c-name').classList.remove('press');
-    setChip('c-name', 'on'); await sleep(600);
-    cue.textContent = 'Paste into Name. The next value copies by itself.';
-    await paste('f-name', 'c-name', 'c-id');
-    cue.textContent = 'Type the age yourself…';
-    await type('f-age');
-    cue.textContent = 'Pick gender yourself…';
-    await pick('f-gender');
-    cue.textContent = 'Paste again: Aadhaar is already on the clipboard.';
-    await paste('f-id', 'c-id', 'c-name2');
-    cue.textContent = 'And again for the next pilgrim.';
-    await paste('f-name2', 'c-name2', null);
-    hint.classList.add('show');
+    cue.textContent='Click the Name field — it\'s already copied for you.';
+    await focusPaste('f-name');
+    cue.textContent='Press Ctrl+V. Done.';
+    await sleep(250);
+    cue.textContent='Type the age yourself…';
+    await typeField('f-age');
+    cue.textContent='Pick gender yourself…';
+    await pickField('f-gender');
+    cue.textContent='Click Aadhaar — copied for you. Ctrl+V.';
+    await focusPaste('f-id');
+    cue.textContent='Next pilgrim — same thing. Click, Ctrl+V.';
+    await focusPaste('f-name2');
+    cursor.style.opacity='0'; hint.classList.add('show');
   }
-  let running = false, played = false;
+  let running=false, played=false;
   fillBtn.addEventListener('click', async () => {
-    if (running) return;
-    if (played) {                       // second tap = reset so they can watch again
-      resetAll(); played = false;
-      fillBtn.textContent = '▶ Play'; fillBtn.classList.remove('again');
-      cue.innerHTML = CUE_START;
-      return;
-    }
-    running = true; fillBtn.disabled = true; fillBtn.textContent = 'Playing…';
-    if (reduced) showAll(); else await play();
-    running = false; played = true; fillBtn.disabled = false;
-    fillBtn.textContent = '↺ Again'; fillBtn.classList.add('again');
-    cue.innerHTML = '<span class="fill-done-msg">✓ One tap, then just paste</span>';
+    if(running) return;
+    if(played){ reset(); played=false; fillBtn.textContent='▶ Play'; fillBtn.classList.remove('again'); cue.innerHTML=CUE_START; return; }
+    running=true; fillBtn.disabled=true; fillBtn.textContent='Playing…';
+    if(reduced) showAll(); else await play();
+    running=false; played=true; fillBtn.disabled=false;
+    fillBtn.textContent='↺ Again'; fillBtn.classList.add('again');
+    cue.innerHTML='<span class="fill-done-msg">✓ Click a field, paste, done</span>';
   });
 
   // FAQ accordion
